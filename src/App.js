@@ -1,10 +1,10 @@
 import React from "react";
-import ViewProduct from "./components/pages/ViewProduct";
+import EditProduct from "./components/pages/EditProduct";
 
 function App() {
   return (
     <div>
-      <ViewProduct />
+      <EditProduct />
     </div>
   );
 }

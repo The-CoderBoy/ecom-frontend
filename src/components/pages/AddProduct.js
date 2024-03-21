@@ -9,22 +9,24 @@ function AddProduct() {
     discription: "",
   });
 
-  const [image, setImage] = useState([]);
+  const [imageData, setImageData] = useState([]);
+  const [image, setImage] = useState("");
 
   const addData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const addImage = (e) => {
-    setImage(e.target.files);
+    setImageData(e.target.files);
+    setImage(e.target.value);
   };
 
   const submit = async () => {
     const fromData = new FormData();
     fromData.append("data", JSON.stringify(data));
 
-    for (let x = 0; x < image.length; x++) {
-      fromData.append("images", image[x]);
+    for (let x = 0; x < imageData.length; x++) {
+      fromData.append("images", imageData[x]);
     }
 
     await axios
@@ -38,8 +40,8 @@ function AddProduct() {
             discription: "",
           });
 
-          setImage([]);
-
+          setImageData([]);
+          setImage("");
           alert("data saved ");
         }
       });
@@ -80,7 +82,13 @@ function AddProduct() {
         value={data.quantity}
         placeholder="quantity"
       />
-      <input type="file" name="images" multiple onChange={addImage} />
+      <input
+        type="file"
+        name="images"
+        multiple
+        onChange={addImage}
+        value={image}
+      />
       <textarea
         cols="30"
         rows="10"
