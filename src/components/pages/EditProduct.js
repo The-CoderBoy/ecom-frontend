@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+const _id = "65fafe114b7ce25a61a1ed95";
+
 function EditProduct() {
   const [data, setData] = useState({
     "product name": "",
@@ -12,6 +14,9 @@ function EditProduct() {
 
   const [delImage, setDelImage] = useState([]);
 
+  const [imageData, setImageData] = useState([]);
+  const [image, setImage] = useState("");
+
   useEffect(() => {
     apiCall();
   }, []);
@@ -19,7 +24,7 @@ function EditProduct() {
   const apiCall = () => {
     axios
       .post(`${process.env.REACT_APP_ENDPOINT}/productDetails`, {
-        _id: "65fafdda4b7ce25a61a1ed93",
+        _id: _id,
       })
       .then((res) => {
         console.log(res.data);
@@ -56,6 +61,11 @@ function EditProduct() {
     }
   };
 
+  const addImage = (e) => {
+    setImageData(e.target.files);
+    setImage(e.target.value);
+  };
+
   const sendData = async () => {
     let productData = {};
 
@@ -84,6 +94,30 @@ function EditProduct() {
       .then((res) => {
         if (res.data.msg) {
           apiCall();
+          setDelImage([]);
+          setImageData([]);
+          setImage("");
+        }
+      });
+  };
+
+  const sendImageData = async () => {
+    const formData = new FormData();
+
+    formData.append("_id", _id);
+
+    for (let x = 0; x < imageData.length; x++) {
+      formData.append("images", imageData[x]);
+    }
+
+    await axios
+      .post(`${process.env.REACT_APP_ENDPOINT}/addImages`, formData)
+      .then((res) => {
+        if (res.data.msg) {
+          apiCall();
+          setDelImage([]);
+          setImageData([]);
+          setImage("");
         }
       });
   };
@@ -96,7 +130,7 @@ function EditProduct() {
         display: "flex",
         flexDirection: "column",
         width: "60%",
-        marginTop: "50px",
+        marginTop: "30px",
         padding: "10px",
         borderRadius: "10px",
         gap: "10px",
@@ -171,6 +205,22 @@ function EditProduct() {
 
       <button style={{ width: "200px" }} onClick={sendData}>
         Save Changes
+      </button>
+
+      <hr style={{ width: "100%" }} />
+
+      <h4 style={{ margin: "0px" }}>Add New Images</h4>
+
+      <input
+        type="file"
+        name="images"
+        multiple
+        onChange={addImage}
+        value={image}
+      />
+
+      <button style={{ width: "200px" }} onClick={sendImageData}>
+        Save Images
       </button>
     </div>
   );
