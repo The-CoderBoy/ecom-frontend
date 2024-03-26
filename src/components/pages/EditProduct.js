@@ -1,9 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-const _id = "65fafe114b7ce25a61a1ed95";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function EditProduct() {
+  const navigation = useNavigate();
+  const [cookies, setCookie] = useCookies(["user"]);
+  const { _id } = useParams();
+
   const [data, setData] = useState({
     "product name": "",
     price: "",
@@ -18,7 +23,11 @@ function EditProduct() {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    apiCall();
+    if (cookies.user == "admin") {
+      apiCall();
+    } else {
+      navigation("/adminLogin");
+    }
   }, []);
 
   const apiCall = () => {
@@ -93,6 +102,13 @@ function EditProduct() {
       })
       .then((res) => {
         if (res.data.msg) {
+          setData({
+            "product name": "",
+            price: "",
+            quantity: "",
+            discription: "",
+            images: [],
+          });
           apiCall();
           setDelImage([]);
           setImageData([]);

@@ -1,13 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function AddProduct() {
+  const navigation = useNavigate();
+  const [cookies, setCookie] = useCookies(["user"]);
+
   const [data, setData] = useState({
     "product name": "",
     price: "",
     quantity: "",
     discription: "",
   });
+
+  useEffect(() => {
+    if (cookies.user !== "admin") {
+      navigation("/adminLogin");
+    }
+  }, []);
 
   const [imageData, setImageData] = useState([]);
   const [image, setImage] = useState("");
@@ -30,7 +41,7 @@ function AddProduct() {
     }
 
     await axios
-      .post("http://localhost:3001/addProduct", fromData)
+      .post(`${process.env.REACT_APP_ENDPOINT}/addProduct`, fromData)
       .then((res) => {
         if (res.data.msg) {
           setData({
