@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import Nav from "./components/Nav";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
@@ -10,6 +11,7 @@ root.render(
   <React.StrictMode>
     <CookiesProvider>
       <BrowserRouter>
+        <Nav />
         <App />
       </BrowserRouter>
     </CookiesProvider>

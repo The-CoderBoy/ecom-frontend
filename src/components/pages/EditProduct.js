@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import Side from "../Sidebar";
 
 function EditProduct() {
   const navigation = useNavigate();
@@ -139,105 +140,108 @@ function EditProduct() {
   };
 
   return (
-    <div
-      style={{
-        margin: "auto",
-        border: "solid 1px black",
-        display: "flex",
-        flexDirection: "column",
-        width: "60%",
-        marginTop: "30px",
-        padding: "10px",
-        borderRadius: "10px",
-        gap: "10px",
-      }}
-    >
-      <input
-        type="text"
-        name="product name"
-        onChange={addData}
-        value={data["product name"]}
-        placeholder="product name"
-      />
-      <input
-        type="text"
-        name="price"
-        onChange={addData}
-        value={data.price}
-        placeholder="price"
-      />
-      <input
-        type="text"
-        name="quantity"
-        onChange={addData}
-        value={data.quantity}
-        placeholder="quantity"
-      />
-
-      <textarea
-        cols="30"
-        rows="10"
-        name="discription"
-        onChange={addData}
-        value={data.discription}
-        placeholder="discription"
-      ></textarea>
-
-      <hr style={{ width: "100%" }} />
-
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Side />
       <div
         style={{
           margin: "auto",
-          width: "97%",
-          display: "flex",
-          gap: "20px",
-          overflowX: "scroll",
-          padding: "10px",
           border: "solid 1px black",
+          display: "flex",
+          flexDirection: "column",
+          width: "60%",
+          marginTop: "30px",
+          padding: "10px",
+          borderRadius: "10px",
+          gap: "10px",
         }}
       >
-        {data.images.map((item, index) => {
-          return (
-            <div key={index}>
-              <img
-                src={`${process.env.REACT_APP_ENDPOINT}/image/${item}`}
-                alt=""
-                width={200}
-                height={200}
-              />
-              <div>
-                <label htmlFor={index}>Delete</label>
-                <input
-                  id={index}
-                  type="checkbox"
-                  value={item}
-                  onChange={delImageHandler}
+        <input
+          type="text"
+          name="product name"
+          onChange={addData}
+          value={data["product name"]}
+          placeholder="product name"
+        />
+        <input
+          type="text"
+          name="price"
+          onChange={addData}
+          value={data.price}
+          placeholder="price"
+        />
+        <input
+          type="text"
+          name="quantity"
+          onChange={addData}
+          value={data.quantity}
+          placeholder="quantity"
+        />
+
+        <textarea
+          cols="30"
+          rows="10"
+          name="discription"
+          onChange={addData}
+          value={data.discription}
+          placeholder="discription"
+        ></textarea>
+
+        <hr style={{ width: "100%" }} />
+
+        <div
+          style={{
+            margin: "auto",
+            width: "97%",
+            display: "flex",
+            gap: "20px",
+            overflowX: "scroll",
+            padding: "10px",
+            border: "solid 1px black",
+          }}
+        >
+          {data.images.map((item, index) => {
+            return (
+              <div key={index}>
+                <img
+                  src={`${process.env.REACT_APP_ENDPOINT}/image/${item}`}
+                  alt=""
+                  width={200}
+                  height={200}
                 />
+                <div>
+                  <label htmlFor={index}>Delete</label>
+                  <input
+                    id={index}
+                    type="checkbox"
+                    value={item}
+                    onChange={delImageHandler}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+
+        <button style={{ width: "200px" }} onClick={sendData}>
+          Save Changes
+        </button>
+
+        <hr style={{ width: "100%" }} />
+
+        <h4 style={{ margin: "0px" }}>Add New Images</h4>
+
+        <input
+          type="file"
+          name="images"
+          multiple
+          onChange={addImage}
+          value={image}
+        />
+
+        <button style={{ width: "200px" }} onClick={sendImageData}>
+          Save Images
+        </button>
       </div>
-
-      <button style={{ width: "200px" }} onClick={sendData}>
-        Save Changes
-      </button>
-
-      <hr style={{ width: "100%" }} />
-
-      <h4 style={{ margin: "0px" }}>Add New Images</h4>
-
-      <input
-        type="file"
-        name="images"
-        multiple
-        onChange={addImage}
-        value={image}
-      />
-
-      <button style={{ width: "200px" }} onClick={sendImageData}>
-        Save Images
-      </button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import Side from "../Sidebar";
 
 function AddProduct() {
   const navigation = useNavigate();
@@ -59,57 +60,60 @@ function AddProduct() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "400px",
-        gap: "10px",
-        border: "solid 1px black",
-        padding: "10px",
-        margin: "auto",
-        marginTop: "50px",
-        borderRadius: "10px",
-      }}
-    >
-      <input
-        type="text"
-        name="product name"
-        onChange={addData}
-        value={data["product name"]}
-        placeholder="product name"
-      />
-      <input
-        type="text"
-        name="price"
-        onChange={addData}
-        value={data.price}
-        placeholder="price"
-      />
-      <input
-        type="text"
-        name="quantity"
-        onChange={addData}
-        value={data.quantity}
-        placeholder="quantity"
-      />
-      <input
-        type="file"
-        name="images"
-        multiple
-        onChange={addImage}
-        value={image}
-      />
-      <textarea
-        cols="30"
-        rows="10"
-        name="discription"
-        onChange={addData}
-        value={data.discription}
-        placeholder="discription"
-      ></textarea>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Side />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "400px",
+          gap: "10px",
+          border: "solid 1px black",
+          padding: "10px",
+          margin: "auto",
+          marginTop: "50px",
+          borderRadius: "10px",
+        }}
+      >
+        <input
+          type="text"
+          name="product name"
+          onChange={addData}
+          value={data["product name"]}
+          placeholder="product name"
+        />
+        <input
+          type="text"
+          name="price"
+          onChange={addData}
+          value={data.price}
+          placeholder="price"
+        />
+        <input
+          type="text"
+          name="quantity"
+          onChange={addData}
+          value={data.quantity}
+          placeholder="quantity"
+        />
+        <input
+          type="file"
+          name="images"
+          multiple
+          onChange={addImage}
+          value={image}
+        />
+        <textarea
+          cols="30"
+          rows="10"
+          name="discription"
+          onChange={addData}
+          value={data.discription}
+          placeholder="discription"
+        ></textarea>
 
-      <button onClick={submit}>Submit</button>
+        <button onClick={submit}>Submit</button>
+      </div>
     </div>
   );
 }

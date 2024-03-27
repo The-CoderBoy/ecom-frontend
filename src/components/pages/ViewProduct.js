@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import Side from "../Sidebar";
 
 function ViewProduct() {
   const navigation = useNavigate();
@@ -39,50 +40,53 @@ function ViewProduct() {
   };
 
   return (
-    <div
-      style={{
-        width: "90%",
-        height: "80vh",
-        border: "1px solid black",
-        margin: "auto",
-        marginTop: "50px",
-        overflowY: "scroll",
-      }}
-    >
-      <table style={{ width: "100%", textAlign: "center" }}>
-        <thead>
-          <th>Product Name</th>
-          <th>Qauntity</th>
-          <th>Price</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </thead>
-        <tbody>
-          {data.map((item, index) => {
-            return (
-              <tr key={index}>
-                <td>{item["product name"]}</td>
-                <td>{item.quantity}</td>
-                <td>{item.price}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      navigation(`/editProduct/${item._id}`);
-                    }}
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td>
-                  <button onClick={() => deleteProduct(item._id)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Side />
+      <div
+        style={{
+          width: "90%",
+          height: "80vh",
+          border: "1px solid black",
+          margin: "auto",
+          marginTop: "50px",
+          overflowY: "scroll",
+        }}
+      >
+        <table style={{ width: "100%", textAlign: "center" }}>
+          <thead>
+            <th>Product Name</th>
+            <th>Qauntity</th>
+            <th>Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </thead>
+          <tbody>
+            {data.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{item["product name"]}</td>
+                  <td>{item.quantity}</td>
+                  <td>{item.price}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        navigation(`/editProduct/${item._id}`);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button onClick={() => deleteProduct(item._id)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
