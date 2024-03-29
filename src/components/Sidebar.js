@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { IoIosMenu, IoMdClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Side() {
+  const navigation = useNavigate();
+  const [cookies, setCookie] = useCookies(["user"]);
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -25,6 +29,14 @@ function Side() {
             Add Product
           </MenuItem>
           <MenuItem component={<Link to="/addBanner" />}>Add Banner</MenuItem>
+          <MenuItem
+            onClick={() => {
+              setCookie("user", "");
+              navigation("/adminLogin");
+            }}
+          >
+            Log Out
+          </MenuItem>
         </Menu>
       </Sidebar>
       <main style={{ padding: 10 }}>

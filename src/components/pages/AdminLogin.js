@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +30,12 @@ function AdminLogin() {
         }
       });
   };
+
+  useEffect(() => {
+    if (cookies.user == "admin") {
+      navigation("/viewProduct");
+    }
+  }, []);
 
   return (
     <div

@@ -7,6 +7,7 @@ import ViewProduct from "./components/pages/ViewProduct";
 import EditProduct from "./components/pages/EditProduct";
 import AdminLogin from "./components/pages/AdminLogin";
 import AddBanner from "./components/pages/AddBanner";
+import SignUp from "./components/pages/SignUp";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/editProduct/:_id" element={<EditProduct />} />
       <Route path="/adminLogin" element={<AdminLogin />} />
       <Route path="/addBanner" element={<AddBanner />} />
+      <Route path="/signUp" element={<SignUp />} />
     </Routes>
   );
 }

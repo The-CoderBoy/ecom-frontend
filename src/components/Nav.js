@@ -13,7 +13,10 @@ function Nav() {
         text: "Admin Login",
         link: "/adminLogin",
       },
-      ,
+      {
+        text: "Sign in",
+        link: "/signUp",
+      },
     ],
     logo: {
       text: "E-commerce",

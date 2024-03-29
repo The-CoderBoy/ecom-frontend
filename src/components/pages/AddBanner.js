@@ -12,13 +12,17 @@ function AddBanner() {
   const [data, setData] = useState([]);
   const [delImage, setDelImage] = useState([]);
 
+  const apiCall = () => {
+    axios.post(`${process.env.REACT_APP_ENDPOINT}/viewBanner`).then((res) => {
+      setData(res.data.images);
+    });
+  };
+
   useEffect(() => {
     if (cookies.user !== "admin") {
       navigation("/adminLogin");
     } else {
-      axios.post(`${process.env.REACT_APP_ENDPOINT}/viewBanner`).then((res) => {
-        setData(res.data.images);
-      });
+      apiCall();
     }
   }, []);
 
@@ -40,7 +44,51 @@ function AddBanner() {
         if (res.data.msg) {
           setImageData([]);
           setImage("");
+          apiCall();
           alert("data saved ");
+        }
+      });
+  };
+
+  const delImageHandler = (e) => {
+    if (e.target.checked) {
+      setDelImage((pre) => {
+        if (pre.includes(e.target.value)) {
+          return pre;
+        } else {
+          let newArr = [...pre];
+          newArr.push(e.target.value);
+          return newArr;
+        }
+      });
+    } else {
+      if (delImage.includes(e.target.value)) {
+        setDelImage((pre) => {
+          let newArr = [...pre].filter((x, i) => {
+            if (x !== e.target.value) {
+              return x;
+            }
+          });
+          return newArr;
+        });
+      }
+    }
+  };
+
+  const deleteImage = () => {
+    let remainImage = data.filter((x) => {
+      return !delImage.includes(x);
+    });
+    axios
+      .post(`${process.env.REACT_APP_ENDPOINT}/deleteBanner`, {
+        remainImage,
+        delImage,
+      })
+      .then((res) => {
+        if (res.data.msg) {
+          setData([]);
+          apiCall();
+          setDelImage([]);
         }
       });
   };
@@ -93,12 +141,18 @@ function AddBanner() {
                 />
                 <div>
                   <label htmlFor={index}>Delete</label>
-                  <input id={index} type="checkbox" value={item} />
+                  <input
+                    id={index}
+                    type="checkbox"
+                    value={item}
+                    onChange={delImageHandler}
+                  />
                 </div>
               </div>
             );
           })}
         </div>
+        <button onClick={deleteImage}>Delete Images</button>
       </div>
     </div>
   );
