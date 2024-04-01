@@ -8,6 +8,8 @@ import EditProduct from "./components/pages/EditProduct";
 import AdminLogin from "./components/pages/AdminLogin";
 import AddBanner from "./components/pages/AddBanner";
 import SignUp from "./components/pages/SignUp";
+import UserLogin from "./components/pages/UserLogin";
+import UserDetail from "./components/pages/UserDetail";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <Route path="/adminLogin" element={<AdminLogin />} />
       <Route path="/addBanner" element={<AddBanner />} />
       <Route path="/signUp" element={<SignUp />} />
+      <Route path="/userLogin" element={<UserLogin />} />
+      <Route path="/userDetail" element={<UserDetail />} />
     </Routes>
   );
 }

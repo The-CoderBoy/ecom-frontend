@@ -14,8 +14,8 @@ function Nav() {
         link: "/adminLogin",
       },
       {
-        text: "Sign in",
-        link: "/signUp",
+        text: "Login",
+        link: "/userLogin",
       },
     ],
     logo: {
