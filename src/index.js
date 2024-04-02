@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

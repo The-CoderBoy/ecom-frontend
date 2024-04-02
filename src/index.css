@@ -1,0 +1,23 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.image-gallery {
+  width: 500px;
+  height: 500px;
+}
+
+.image-gallery-slide img {
+  width: 300px;
+  height: 300px;
+}
+
+.fullscreen .image-gallery-slide img {
+  height: 100vh;
+  width: 100vw;
+}
+
+@media screen and (max-width: 500px) {
+  .image-gallery {
+    width: 300px;
+    height: 300px;
+  }
+}
