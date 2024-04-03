@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
+import { useCookies } from "react-cookie";
 
 function ProductPage() {
   const [data, setData] = useState({
@@ -12,7 +13,7 @@ function ProductPage() {
     images: [],
   });
   const { _id } = useParams();
-
+  const [cookies, setCookie] = useCookies(["user"]);
   const [image, setImage] = useState([]);
   const [qty, setQty] = useState(1);
 
@@ -43,6 +44,26 @@ function ProductPage() {
     }
   };
 
+  const addToCart = () => {
+    if (cookies.user.length && cookies.user != "admin") {
+      let cartData = {
+        userName: cookies.user,
+        productId: _id,
+        productName: data["product name"],
+        quantity: qty,
+        price: data.price,
+      };
+
+      axios
+        .post(`${process.env.REACT_APP_ENDPOINT}/addToCart`, cartData)
+        .then((res) => {
+          console.log(res.data);
+        });
+    } else {
+      alert("Please Login first");
+    }
+  };
+
   return (
     <div
       style={{
@@ -67,7 +88,7 @@ function ProductPage() {
         <p>Total Price : {+data.price * +qty}</p>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <button>Buy</button>
-          <button>Add To Cart</button>
+          <button onClick={addToCart}>Add To Cart</button>
         </div>
       </div>
     </div>
