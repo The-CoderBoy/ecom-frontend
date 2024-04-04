@@ -35,7 +35,7 @@ function UserLogin() {
   };
 
   useEffect(() => {
-    if (cookies.user.length && cookies.user != "admin") {
+    if (cookies.user?.length && cookies.user != "admin") {
       navigation("/userDetail");
     }
   }, []);
