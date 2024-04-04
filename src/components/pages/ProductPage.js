@@ -45,7 +45,7 @@ function ProductPage() {
   };
 
   const addToCart = () => {
-    if (cookies.user.length && cookies.user != "admin") {
+    if (cookies.user?.length && cookies.user != "admin") {
       let cartData = {
         userName: cookies.user,
         productId: _id,

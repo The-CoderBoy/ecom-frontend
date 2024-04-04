@@ -12,6 +12,7 @@ import UserLogin from "./components/pages/UserLogin";
 import UserDetail from "./components/pages/UserDetail";
 import ProductPage from "./components/pages/ProductPage";
 import Cart from "./components/pages/Cart";
+import CheckOutFromCart from "./components/pages/CheckOutFromCart";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/userDetail" element={<UserDetail />} />
       <Route path="/productPage/:_id" element={<ProductPage />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkOutFromCart" element={<CheckOutFromCart />} />
     </Routes>
   );
 }
