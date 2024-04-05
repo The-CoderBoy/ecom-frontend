@@ -57,10 +57,40 @@ function ProductPage() {
       axios
         .post(`${process.env.REACT_APP_ENDPOINT}/addToCart`, cartData)
         .then((res) => {
-          console.log(res.data);
+          if (res.data.msg) {
+            alert("product added in the cart");
+          }
         });
     } else {
       alert("Please Login first");
+    }
+  };
+
+  const buyNow = () => {
+    const result = window.confirm(
+      `Product name : ${
+        data["product name"]
+      } \n Qnatity : ${qty} \n Total Price : ${+qty * +data.price}`
+    );
+
+    let orderData = {
+      userName: cookies.user,
+      productId: data.productId,
+      productName: data["product name"],
+      price: data.price,
+      quantity: qty,
+    };
+
+    if (result) {
+      axios
+        .post(`${process.env.REACT_APP_ENDPOINT}/buyNow`, orderData)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.msg) {
+            setQty(1);
+            alert("order placed");
+          }
+        });
     }
   };
 
@@ -87,7 +117,7 @@ function ProductPage() {
         </div>
         <p>Total Price : {+data.price * +qty}</p>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <button>Buy</button>
+          <button onClick={buyNow}>Buy</button>
           <button onClick={addToCart}>Add To Cart</button>
         </div>
       </div>
