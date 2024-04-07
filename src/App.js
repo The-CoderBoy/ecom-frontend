@@ -13,6 +13,7 @@ import UserDetail from "./components/pages/UserDetail";
 import ProductPage from "./components/pages/ProductPage";
 import Cart from "./components/pages/Cart";
 import CheckOutFromCart from "./components/pages/CheckOutFromCart";
+import Order from "./components/pages/Order";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path="/productPage/:_id" element={<ProductPage />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkOutFromCart" element={<CheckOutFromCart />} />
+      <Route path="/order" element={<Order />} />
     </Routes>
   );
 }

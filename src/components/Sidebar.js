@@ -29,6 +29,7 @@ function Side() {
             Add Product
           </MenuItem>
           <MenuItem component={<Link to="/addBanner" />}>Add Banner</MenuItem>
+          <MenuItem component={<Link to="/order" />}>View Order</MenuItem>
           <MenuItem
             onClick={() => {
               setCookie("user", "");
