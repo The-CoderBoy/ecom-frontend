@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { CartProvider } from "../Provider";
 
 function UserLogin() {
   const navigation = useNavigate();
-
+  const { cartHandler } = useContext(CartProvider);
   const [data, setData] = useState({
     userName: "",
     password: "",
@@ -23,6 +24,7 @@ function UserLogin() {
       .then((res) => {
         if (res.data) {
           setCookie("user", data.userName);
+          cartHandler();
           navigation("/userDetail");
         } else {
           alert("Wrong username or password");

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { CartProvider } from "./Provider";
 
 function UserSidebar() {
+  const { cartHandler } = useContext(CartProvider);
   const navigation = useNavigate();
   const [cookies, setCookie] = useCookies(["user"]);
   const [collapsed, setCollapsed] = useState(false);
@@ -24,9 +26,11 @@ function UserSidebar() {
           <MenuItem component={<Link to="/userDetail" />}>
             User Details
           </MenuItem>
+          <MenuItem component={<Link to="/userOrder" />}>User Order</MenuItem>
           <MenuItem
             onClick={() => {
               setCookie("user", "");
+              cartHandler();
               navigation("/userLogin");
             }}
           >

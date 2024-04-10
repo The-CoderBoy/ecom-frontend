@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import { useCookies } from "react-cookie";
+import { CartProvider } from "../Provider";
 
 function ProductPage() {
+  const { cartHandler } = useContext(CartProvider);
   const [data, setData] = useState({
     "product name": "",
     price: "",
@@ -59,6 +61,7 @@ function ProductPage() {
         .then((res) => {
           if (res.data.msg) {
             alert("product added in the cart");
+            cartHandler();
           }
         });
     } else {
