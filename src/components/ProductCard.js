@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function ProductCard({ imageUrl, productName, _id }) {
+function ProductCard({ imageUrl, productName, _id, price }) {
   const navigation = useNavigate();
 
   return (
@@ -22,6 +22,7 @@ function ProductCard({ imageUrl, productName, _id }) {
         width={250}
       />
       <div style={{ margin: "auto", marginTop: "10px" }}>{productName}</div>
+      <div style={{ margin: "auto", marginTop: "10px" }}>{price}</div>
       <button
         style={{ marginTop: "10px" }}
         onClick={() => {

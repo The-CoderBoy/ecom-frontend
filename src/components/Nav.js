@@ -6,13 +6,15 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CartProvider } from "./Provider";
+import { IoIosSearch } from "react-icons/io";
 
 function Nav() {
   const { checkCart } = useContext(CartProvider);
-
   const navigation = useNavigate();
   const [item, setItem] = useState(0);
   const [cookies, setCookie] = useCookies(["user"]);
+  const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState("");
 
   useEffect(() => {
     if (cookies.user?.length && cookies.user != "admin") {
@@ -60,6 +62,15 @@ function Nav() {
     },
   };
 
+  useEffect(() => {
+    axios.post(`${process.env.REACT_APP_ENDPOINT}/viewProduct`).then((res) => {
+      if (res.data) {
+        setData(res.data);
+        console.log(res.data);
+      }
+    });
+  }, []);
+
   return (
     <>
       <div style={{ position: "relative" }}>
@@ -94,6 +105,35 @@ function Nav() {
           }}
         >
           {item}
+        </div>
+        <div style={{ textAlign: "center", marginTop: "8px" }}>
+          <input
+            type="text"
+            style={{ width: "300px", height: "25px" }}
+            list="search"
+            onChange={(e) => {
+              setSearchData(e.target.value);
+            }}
+          />
+          <datalist id="search">
+            {data.map((item, index) => {
+              return (
+                <option value={item["product name"]} key={index}>
+                  {item["product name"]}
+                </option>
+              );
+            })}
+          </datalist>
+          <button
+            style={{ height: "30px" }}
+            onClick={() => {
+              if (searchData.length) {
+                navigation(`/SearchProduct/${searchData}`);
+              }
+            }}
+          >
+            <IoIosSearch />
+          </button>
         </div>
       </div>
     </>

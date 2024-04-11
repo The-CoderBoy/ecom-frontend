@@ -34,6 +34,7 @@ function Home() {
                 imageUrl={item.images[0]}
                 productName={item["product name"]}
                 _id={item._id}
+                price={item.price}
               />
             </div>
           );
